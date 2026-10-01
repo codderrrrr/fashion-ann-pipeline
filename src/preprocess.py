@@ -1,10 +1,16 @@
 import numpy as np
+import yaml
 import os
+
+with open("params.yaml", "r") as f:
+    params = yaml.safe_load(f)
+
+preprocess_params = params["preprocess"]
 
 DATA_DIR = "data/raw"
 PREPROCESSED_DATA_DIR = "data/processed"
 
-VAL_SIZE = 0.2
+VAL_SIZE = preprocess_params["val_size"]
 os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(PREPROCESSED_DATA_DIR, exist_ok=True)
 

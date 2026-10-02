@@ -1,0 +1,88 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: uv run python src/prepare.py
+    deps:
+    - path: src/prepare.py
+      hash: md5
+      md5: 06db81def70bf55b3cc2c067b773e397
+      size: 359
+    outs:
+    - path: data/raw/Fashion-MNIST.npz
+      hash: md5
+      md5: 35a5c0f624eec4e99c9af132b64eef08
+      size: 54950958
+  preprocess:
+    cmd: uv run python src/preprocess.py
+    deps:
+    - path: data/raw/Fashion-MNIST.npz
+      hash: md5
+      md5: 35a5c0f624eec4e99c9af132b64eef08
+      size: 54950958
+    - path: src/preprocess.py
+      hash: md5
+      md5: 2e7dab13f5999f424f1660d0fdf9056a
+      size: 858
+    params:
+      params.yaml:
+        preprocess.val_size: 0.2
+    outs:
+    - path: data/processed/Fashion-MNIST.npz
+      hash: md5
+      md5: 3bf8ec3abd3248f255781cfb3554ec44
+      size: 439111426
+  train:
+    cmd: uv run python src/train.py
+    deps:
+    - path: data/processed/Fashion-MNIST.npz
+      hash: md5
+      md5: 3bf8ec3abd3248f255781cfb3554ec44
+      size: 439111426
+    - path: src/train.py
+      hash: md5
+      md5: 18b519838e702dd01adc899b8fe98b9d
+      size: 1183
+    params:
+      params.yaml:
+        train.batch_size: 32
+        train.dense1_activation: relu
+        train.dense2_activation: softmax
+        train.dense2_units: 10
+        train.dense_units: 128
+        train.dropout_rate: 0.2
+        train.epochs: 10
+        train.loss: sparse_categorical_crossentropy
+        train.optimizer: adam
+    outs:
+    - path: models/history.csv
+      hash: md5
+      md5: 56bdce96635e0c7a9eea9fa08417c7a7
+      size: 426
+    - path: models/model.h5
+      hash: md5
+      md5: 8f9b61ae5c171cc572cdbda924ed3a91
+      size: 1245272
+  evaluate:
+    cmd: uv run python src/evaluate.py
+    deps:
+    - path: data/processed/Fashion-MNIST.npz
+      hash: md5
+      md5: 3bf8ec3abd3248f255781cfb3554ec44
+      size: 439111426
+    - path: models/model.h5
+      hash: md5
+      md5: 8f9b61ae5c171cc572cdbda924ed3a91
+      size: 1245272
+    - path: src/evaluate.py
+      hash: md5
+      md5: abc368f241ca9bc9c09f0c2eeb1404fa
+      size: 956
+    outs:
+    - path: confusion_matrix.png
+      hash: md5
+      md5: 69da8eb7eac54c9ac705fd6444a2db3d
+      size: 78052
+    - path: metrics.json
+      hash: md5
+      md5: 2907ff4e9b8b419cc24de57c3088e03e
+      size: 69

@@ -2,12 +2,12 @@ preprocess:
   val_size: 0.2
 
 train:
-  dense_units: 256
+  dense_units: 128
   dropout_rate: 0.2
   dense1_activation: relu
   dense2_units: 10
   dense2_activation: softmax
   optimizer: adam
   loss: sparse_categorical_crossentropy
-  epochs: 1
+  epochs: 10
   batch_size: 32

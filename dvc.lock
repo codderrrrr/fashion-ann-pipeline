@@ -17,7 +17,7 @@ stages:
     deps:
     - path: data/processed/Fashion-MNIST.npz
       hash: md5
-      md5: 3bf8ec3abd3248f255781cfb3554ec44
+      md5: 3fa158fd9cd0753fe686f7ca0734b0c0
       size: 439111426
     - path: src/train.py
       hash: md5
@@ -37,22 +37,22 @@ stages:
     outs:
     - path: models/history.csv
       hash: md5
-      md5: 56bdce96635e0c7a9eea9fa08417c7a7
+      md5: 3f0152cf8bbfc6f45e9187becfb8f4e9
       size: 426
     - path: models/model.h5
       hash: md5
-      md5: 8f9b61ae5c171cc572cdbda924ed3a91
+      md5: ef5d8194feb28fb8a275bed60453c2a6
       size: 1245272
   evaluate:
     cmd: uv run python src/evaluate.py
     deps:
     - path: data/processed/Fashion-MNIST.npz
       hash: md5
-      md5: 3bf8ec3abd3248f255781cfb3554ec44
+      md5: 3fa158fd9cd0753fe686f7ca0734b0c0
       size: 439111426
     - path: models/model.h5
       hash: md5
-      md5: 8f9b61ae5c171cc572cdbda924ed3a91
+      md5: ef5d8194feb28fb8a275bed60453c2a6
       size: 1245272
     - path: src/evaluate.py
       hash: md5
@@ -61,9 +61,9 @@ stages:
     outs:
     - path: confusion_matrix.png
       hash: md5
-      md5: 69da8eb7eac54c9ac705fd6444a2db3d
-      size: 78052
+      md5: 55a623d03e7ecc1b5ea4c486a9e32589
+      size: 79094
     - path: metrics.json
       hash: md5
-      md5: 2907ff4e9b8b419cc24de57c3088e03e
+      md5: dc03108f0b790764944bc8f8abeab4ad
       size: 69

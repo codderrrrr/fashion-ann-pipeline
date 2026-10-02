@@ -1,44 +1,35 @@
 stages:
   prepare:
-      cmd: uv run python src/prepare.py
-      deps:
-        - src/prepare.py
-      outs:
-        - data/raw/Fashion-MNIST.npz
-  preprocess:
-      cmd: uv run python src/preprocess.py
-      deps:
-        - src/preprocess.py
-        - data/raw/Fashion-MNIST.npz
-      params:
-        - preprocess.val_size
-      outs:
-        - data/processed/Fashion-MNIST.npz
+    cmd: uv run python src/prepare.py
+    deps:
+    - src/prepare.py
+    outs:
+    - data/raw/Fashion-MNIST.npz
   train:
-      cmd: uv run python src/train.py
-      deps:
-        - src/train.py
-        - data/processed/Fashion-MNIST.npz
-      params:
-        - train.dense_units
-        - train.dropout_rate
-        - train.dense1_activation
-        - train.dense2_units
-        - train.dense2_activation
-        - train.optimizer
-        - train.loss
-        - train.epochs
-        - train.batch_size
-      outs:
-        - models/model.h5
-        - models/history.csv
+    cmd: uv run python src/train.py
+    deps:
+    - src/train.py
+    - data/processed/Fashion-MNIST.npz
+    params:
+    - train.dense_units
+    - train.dropout_rate
+    - train.dense1_activation
+    - train.dense2_units
+    - train.dense2_activation
+    - train.optimizer
+    - train.loss
+    - train.epochs
+    - train.batch_size
+    outs:
+    - models/model.h5
+    - models/history.csv
   evaluate:
-      cmd: uv run python src/evaluate.py
-      deps:
-        - src/evaluate.py
-        - models/model.h5
-        - data/processed/Fashion-MNIST.npz
-      metrics:
-        - metrics.json
-      outs:
-        - confusion_matrix.png
+    cmd: uv run python src/evaluate.py
+    deps:
+    - src/evaluate.py
+    - models/model.h5
+    - data/processed/Fashion-MNIST.npz
+    metrics:
+    - metrics.json
+    outs:
+    - confusion_matrix.png

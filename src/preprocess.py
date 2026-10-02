@@ -20,8 +20,8 @@ X_train, X_test, y_train, y_test = data['a'], data['b'], data['c'], data['d']
 X_train = X_train / 255.0
 X_test = X_test / 255.0
 
-X_train = np.clip(X_train, 0.0, 1.0)
-X_test = np.clip(X_test, 0.0, 1.0)
+X_train = (X_train - X_train.mean()) / X_train.std()
+X_test = (X_test - X_train.mean()) / X_train.std()
 
 VAL_SPLIT = int(VAL_SIZE * len(X_train))
 X_train, X_val = X_train[VAL_SPLIT:], X_train[:VAL_SPLIT]
